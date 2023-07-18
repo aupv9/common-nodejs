@@ -26,7 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Database = void 0;
 const mongoose = __importStar(require("mongoose"));
 const dotenv_1 = require("dotenv");
-const URI = process.env.MONGO_URL || "mongodb://localhost:27017/db";
+const URI = process.env.MONGO_URL || "mongodb://localhost:27017/test-node";
 class Database {
     constructor() {
         (0, dotenv_1.config)();
@@ -34,7 +34,7 @@ class Database {
     }
     connect(type = DatabaseType.Mongo) {
         mongoose.connect(URI).then(() => {
-            console.log("Connected to database");
+            console.log("Count connection: ", mongoose.connections.length);
         })
             .catch((err) => {
             console.log(err);

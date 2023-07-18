@@ -21,14 +21,13 @@ app.use(morgan('dev'))
 app.use(helmet())
 app.use(compression())
 
+
 // routes
 app.get('/', (req, res, next) => {
     return res.status(200).json({
         message: 'Hello World!'.repeat(100000)
     })
 });
-
-
 
 
 

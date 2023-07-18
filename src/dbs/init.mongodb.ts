@@ -2,7 +2,7 @@ import * as mongoose from "mongoose";
 import { config } from "dotenv";
 
 
-const URI =  process.env.MONGO_URL || "mongodb://localhost:27017/db";
+const URI =  process.env.MONGO_URL || "mongodb://localhost:27017/test-node";
 export class Database implements IDatabase{
 
     private static instance: Database;
@@ -13,7 +13,7 @@ export class Database implements IDatabase{
 
     public connect(type: DatabaseType =  DatabaseType.Mongo): void{
         mongoose.connect(URI).then(() => {
-            console.log("Connected to database");
+            console.log("Count connection: ", mongoose.connections.length);
         })
         .catch((err) => {
             console.log(err);
