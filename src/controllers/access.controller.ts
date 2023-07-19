@@ -1,9 +1,15 @@
 import {Request, Response} from "express-serve-static-core";
 
+import {AbsResponse, SignUpPayload} from "../payload/payload";
+import {shop} from "../models/shop.model";
+
 interface IAccessController{
-    signUp(request: Request,  response: Response,  next: any): Promise<void>;
+    signUp(SignUpPayload): AbsResponse<string>;
 }
 
+interface ResponseSignUp{
+    message: string;
+}
 
  export class AccessController implements IAccessController{
 
@@ -11,12 +17,13 @@ interface IAccessController{
 
      private constructor() {
      }
-    async signUp(): Promise<void> {
+    async signUp(payload: SignUpPayload): AbsResponse<string> {
         try {
-
-            return await new Promise<void>((resolve, reject) => {
-
+            const holder = await shop.findOne({
+                email: payload.email
             });
+
+
         }catch (e) {
 
         }

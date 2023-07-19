@@ -9,8 +9,12 @@ interface AbsResponse<T> {
     timestamp: number;
 }
 
-
+interface SignUpPayload{
+    name: string;
+    email: string;
+    password: string;
+}
 
 export {
-    AbsResponse
+    AbsResponse, SignUpPayload
 }
