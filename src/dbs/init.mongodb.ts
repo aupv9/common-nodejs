@@ -1,5 +1,4 @@
 import * as mongoose from "mongoose";
-import {ConfigHelp} from "../utils/commonUtils";
 
 
 const URI =  process.env.MONGO_URL || "mongodb://localhost:27017/test-node";
@@ -12,7 +11,7 @@ export class Database implements IDatabase{
 
     public connect(type: DatabaseType =  DatabaseType.Mongo): void{
         mongoose.connect(URI).then(() => {
-            console.log("Count connection: ", ConfigHelp.getCountConnectionMongoose(type === DatabaseType.Mongo ? mongoose :  null));
+            console.log("Connection MongoDB success!!");
         })
         .catch((err) => {
             console.log(err);
