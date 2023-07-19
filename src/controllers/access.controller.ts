@@ -23,6 +23,9 @@ interface ResponseSignUp{
                 email: payload.email
             });
 
+            return new AbsResponse<string>(
+
+            )
 
         }catch (e) {
 
