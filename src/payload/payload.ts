@@ -14,6 +14,9 @@ class AbsResponse<T> {
     code: number;
     success: boolean;
     timestamp: number;
+    public static of(data: any, message: string = "Success", code: number, success: boolean, timestamp: number = Date.now()) {
+        return new AbsResponse(data, message, code, success, timestamp);
+    }
 }
 
 interface SignUpPayload{

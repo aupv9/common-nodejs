@@ -1,7 +1,9 @@
 import * as mongoose from "mongoose";
 
 
-const URI =  process.env.MONGO_URL || "mongodb://localhost:27017/test-node";
+const URI =  process.env.MONGODB_URI || "mongodb://localhost:27017/test-node";
+
+const URI_CL= process.env.MONGO_URL_CL || "mongodb+srv://aupv96:123456ABC@cluster0.vgkqqhu.mongodb.net/?retryWrites=true&w=majority";
 export class Database implements IDatabase{
 
     private static instance: Database;

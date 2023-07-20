@@ -1,11 +1,13 @@
 import mongoose from "mongoose";
 import * as os from "os";
-
-
+import * as crypto from "crypto";
+import {KeyPairKeyObjectResult, webcrypto} from "crypto";
+import * as bcrypt from "bcrypt";
 
 export abstract class ConfigHelp {
     private static readonly TIME_INTERVAL: number = 5000;
     private static readonly THRESHOLD_OVERLOAD: number = 2;
+
 
     public static getCountConnectionMongoose(): number {
         if(!mongoose) throw new Error("dbDriver is null");
@@ -40,4 +42,24 @@ export abstract class ConfigHelp {
         return Math.round(bytes / Math.pow(1024, i) * 100 ) / 100 + ' ' + sizes[i];
     }
 
+
+
+}
+
+export interface KeyPair {
+    privateKey: string;
+    publicKey: string;
+}
+
+export abstract class CommonUtils {
+    public static hashPassword(password: string): string {
+        const salt = bcrypt.genSaltSync(10);
+        return bcrypt.hashSync(password, salt);
+    }
+
+    public static generateKeyPair(): KeyPairKeyObjectResult {
+        return crypto.generateKeyPairSync('rsa', {
+            modulusLength: 4096
+        });
+    }
 }
