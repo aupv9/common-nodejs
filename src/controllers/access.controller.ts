@@ -1,10 +1,10 @@
-import {Request, Response} from "express-serve-static-core";
-
 import {AbsResponse, SignUpPayload} from "../payload/payload";
 import {shop} from "../models/shop.model";
+import {CommonUtils} from "../utils/commonUtils";
+import {AccessService} from "../services/access.service";
 
 interface IAccessController{
-    signUp(SignUpPayload): AbsResponse<string>;
+    signUp(SignUpPayload): Promise<AbsResponse<string>>;
 }
 
 interface ResponseSignUp{
@@ -17,19 +17,8 @@ interface ResponseSignUp{
 
      private constructor() {
      }
-    async signUp(payload: SignUpPayload): AbsResponse<string> {
-        try {
-            const holder = await shop.findOne({
-                email: payload.email
-            });
-
-            return new AbsResponse<string>(
-
-            )
-
-        }catch (e) {
-
-        }
+    async signUp(payload: SignUpPayload): Promise<AbsResponse<string>> {
+         return await AccessService.getInstance().signUp(payload);
     }
 
     public static getInstance(): AccessController {

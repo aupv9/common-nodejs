@@ -2,3 +2,11 @@
 
 
 POST http://localhost:3055/v1/api/shop/sign-up
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "ádsdasd",
+  "email": "asdasd",
+  "password": "12121"
+}

@@ -1,4 +1,4 @@
-import {model, models, Schema} from "mongoose";
+import {model, Schema} from "mongoose";
 
 interface IShop{
     name: string;
@@ -32,7 +32,7 @@ const shopSchema = new Schema<IShop>({
     }
 });
 
-const shop = model<IShop>('Shop', shopSchema);
+const shop = model<IShop>('shop', shopSchema);
 
 export {
     shop, IShop
