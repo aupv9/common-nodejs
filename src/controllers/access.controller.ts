@@ -1,8 +1,9 @@
 import {AbsResponse, SignUpPayload} from "../payload/payload";
 import {AccessService} from "../services/access.service";
+import {NextFunction, Request, Response} from "express";
 
 interface IAccessController{
-    signUp(request: any,  response: any,  next: any): Promise<AbsResponse<string>>;
+    signUp(req: Request,  response: Response,  next: NextFunction): Promise<void>;
 }
 
 interface ResponseSignUp{
@@ -17,10 +18,10 @@ const accessService: AccessService = AccessService.getInstance();
 
      private constructor() {
      }
-    async signUp(req: any,  response: any,  next: any): Promise<AbsResponse<string>> {
+     async signUp(req: Request,  response: Response,  next: NextFunction): Promise<void> {
         try {
             const signUpPayload: SignUpPayload = req.body;
-            return response.status(200).json(await accessService.signUp(signUpPayload));
+            response.status(200).json(await accessService.signUp(signUpPayload));
         }
         catch (error) {
             next(error);

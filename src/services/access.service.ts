@@ -2,6 +2,7 @@ import {AbsResponse, SignUpPayload} from "../payload/payload";
 import {shop} from "../models/shop.model";
 import {CommonUtils} from "../utils/commonUtils";
 import {KeyTokenService} from "./keytoken.service";
+import {AuthUtils} from "../utils/authUtils";
 
 
 interface IAccessService {
@@ -38,20 +39,36 @@ export class AccessService implements IAccessService{
                     format: 'pem'
                 }).toString();
 
-                const token = KeyTokenService.createKeyToken({
+                const privateKey = keyPair.privateKey.export(
+                    {
+                        type: 'pkcs8',
+                        format: 'pem'
+                    }
+                ).toString();
+
+
+                const token = await KeyTokenService.createKeyToken({
                    publicKey: publicKey, user: newShop._id
                 });
-                token.then((res) => {
-                    console.log(res);
-                })
-                .catch(() => {
 
+                if(!token){
+                    return new Promise<AbsResponse<string>>((resolve) => {
+                        resolve(
+                            AbsResponse.of("Generate token failed",  null,  500,  false)
+                        )
+                    });
+                }
+
+                const tokens =  await AuthUtils.createPairToken({
+                    payload: {
+                        userId: newShop._id,
+                        email: payload.email
+                    }, publicKey: token, privateKey: privateKey
                 });
-
 
                 return new Promise<AbsResponse<string>>((resolve) => {
                     resolve(
-                        AbsResponse.of("Sign up successfully",  null,  200,  true)
+                        AbsResponse.of("Sign up successfully",  tokens.accessToken,  201,  true)
                     )
                 });
             }
