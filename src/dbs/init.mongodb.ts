@@ -12,9 +12,10 @@ export class Database implements IDatabase{
     }
 
     public connect(type: DatabaseType =  DatabaseType.Mongo): void{
-        mongoose.connect(URI).then(() => {
-            console.log("Connection MongoDB success!!");
-        })
+        mongoose.connect(URI)
+            .then(() => {
+                console.log("Connection MongoDB success!!");
+            })
         .catch((err) => {
             console.log(err);
         });

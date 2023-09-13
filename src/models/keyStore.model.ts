@@ -5,7 +5,7 @@ import { model, Schema, Types, Document } from "mongoose";
 
 interface Token extends Document{
     user: Types.ObjectId,
-    publicKey: string,
+    privateKey: string,
     createdAt: Date,
     refreshToken: Types.Array<string>
 }
@@ -17,7 +17,7 @@ const tokenSchema = new Schema<Token>({
         ref: "shop",
         required: true
     },
-    publicKey: {
+    privateKey: {
         type: String,
         required: true
     },

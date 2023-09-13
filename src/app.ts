@@ -17,6 +17,8 @@ database.connect();
 
 const app: Express = express();
 
+const cwd = process.cwd();
+console.log(cwd)
 
 // middlewares
 app.use(morgan('dev'));

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import * as os from "os";
 import * as crypto from "crypto";
-import {KeyPairKeyObjectResult, webcrypto} from "crypto";
+import {KeyPairKeyObjectResult} from "crypto";
 import * as bcrypt from "bcrypt";
 
 export abstract class ConfigHelp {
@@ -52,6 +52,7 @@ export interface KeyPair {
 }
 
 export abstract class CommonUtils {
+
     public static hashPassword(password: string): string {
         const salt = bcrypt.genSaltSync(10);
         return bcrypt.hashSync(password, salt);

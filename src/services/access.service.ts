@@ -31,6 +31,7 @@ export class AccessService implements IAccessService{
             const newShop = await shop.create({
                 name: payload.name, email: payload.email, password: CommonUtils.hashPassword(payload.password)
             });
+
             if(newShop){
                 const keyPair = CommonUtils.generateKeyPair();
 
@@ -46,9 +47,8 @@ export class AccessService implements IAccessService{
                     }
                 ).toString();
 
-
                 const token = await KeyTokenService.createKeyToken({
-                   publicKey: publicKey, user: newShop._id
+                   privateKey: publicKey, user: newShop._id
                 });
 
                 if(!token){

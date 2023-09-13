@@ -1,9 +1,8 @@
 import {TokenModel} from "../models/keyStore.model";
 import {Types} from "mongoose";
-
 interface IKeyToken{
     user: Types.ObjectId,
-    publicKey: string
+    privateKey: string
 }
 export class KeyTokenService{
 
@@ -11,12 +10,12 @@ export class KeyTokenService{
         try {
             const  token =  await TokenModel.create({
                 user: payload.user,
-                publicKey: payload.publicKey
+                privateKey: payload.privateKey
             });
 
             return token ?
                 new Promise((resolve, reject) => {
-                    resolve(token.publicKey);
+                    resolve(token.privateKey);
                 })
                 :
                 new Promise((resolve, reject) => {

@@ -14,8 +14,8 @@ class AbsResponse<T> {
     code: number;
     success: boolean;
     timestamp: number;
-    public static of(data: any, message: string = "Success", code: number, success: boolean, timestamp: number = Date.now()) {
-        return new AbsResponse(data, message, code, success, timestamp);
+    public static of<T>(data: T, message: string = "Success", code: number, success: boolean, timestamp: number = Date.now()): AbsResponse<T> {
+        return new AbsResponse<T>(data, message, code, success, timestamp);
     }
 }
 
